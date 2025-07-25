@@ -23,42 +23,45 @@ function App() {
   };
 
   return (
-    <>
-      {/* Application header section - Updated with transparent background */}
-      <div className="flex justify-center">
-        <div className="flex justify-center m-3 bg-white/30 backdrop-blur-sm w-2xl p-5 rounded-2xl shadow-lg border border-white/20">
-          <h1 className="text-4xl font-bold text-white drop-shadow-lg">Currency Converter</h1>
+    <div className="min-h-screen p-4">
+      {/* Header */}
+      <div className="flex justify-center mb-6">
+        <div className="w-full max-w-md bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-md border border-white/30">
+          <h1 className="text-2xl md:text-3xl font-bold text-center text-gray-800">
+            Currency Converter
+          </h1>
         </div>
       </div>
 
-      {/* Main converter form section (unchanged) */}
-      <div className="flex justify-center m-10 z-10">
-        <div className="bg-blue-100/40 flex justify-center items-cente w-2xl p-5 z-10 relative rounded-2xl shadow-2xl shadow-pink-600">
+      {/* Main Converter */}
+      <div className="flex justify-center">
+        <div className="w-full max-w-md bg-blue-100/40 backdrop-blur-sm p-4 md:p-6 rounded-xl shadow-lg border border-white/30">
           <form
             onSubmit={(e) => {
               e.preventDefault();
               convert();
             }}
+            className="space-y-4"
           >
             <InputBox
-              lab="From"
+              label="From"
               amount={amount}
               currencyOptions={options}
-              onCurrencyChange={(currency) => setFrom(currency)}
-              onAmountChange={(amount) => setAmount(amount)}
+              onCurrencyChange={setFrom}
+              onAmountChange={setAmount}
               selectCurrency={from}
             />
 
-            <div className="flex justify-center my-4">
+            <div className="flex justify-center">
               <button
                 type="button"
                 onClick={swap}
-                className="bg-blue-100 hover:bg-blue-200 text-blue-800 p-2 rounded-full transition-all duration-300 shadow-md hover:shadow-lg"
+                className="p-2 bg-white border-2 border-blue-100 rounded-full shadow hover:bg-blue-50 transition-all hover:-translate-y-0.5"
                 aria-label="Swap currencies"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
+                  className="h-5 w-5 text-blue-600"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -74,33 +77,34 @@ function App() {
             </div>
 
             <InputBox
-              lab="To"
+              label="To"
               amount={convertedAmount}
               currencyOptions={options}
-              onCurrencyChange={(currency) => setTo(currency)}
+              onCurrencyChange={setTo}
               selectCurrency={to}
               amountDisable
             />
 
-            <div className="flex justify-center m-2">
-              <button
-                type="submit"
-                className="bg-blue-600 p-2 px-4 rounded-md text-amber-50 hover:bg-blue-700 cursor-pointer transition-colors border-2 border-amber-100"
-              >
-                Convert {from.toUpperCase()} to {to.toUpperCase()}
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="w-full py-2 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg shadow hover:shadow-md transition hover:opacity-90"
+            >
+              Convert {from.toUpperCase()} to {to.toUpperCase()}
+            </button>
           </form>
         </div>
       </div>
 
-      {/* Footer section - Updated with transparent background */}
-      <div className="flex justify-center">
-        <div className="flex justify-center w-2xl bg-white/30 backdrop-blur-sm p-3 rounded-2xl shadow-lg border border-white/20">
-          <h1 className="text-xl font-medium text-white drop-shadow-lg">By Meet Dalwadi</h1>
+      {/* Footer */}
+      <div className="flex justify-center mt-6">
+        <div className="w-full max-w-md bg-white/80 p-3 rounded-full shadow-sm text-center">
+          <p className="text-sm md:text-base text-gray-700">
+            Developed by{" "}
+            <span className="font-medium text-blue-600">Meet Dalwadi</span>
+          </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

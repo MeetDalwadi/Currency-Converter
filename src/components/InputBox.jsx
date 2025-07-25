@@ -17,7 +17,7 @@ import { useId } from "react";
  * @returns {JSX.Element} InputBox component
  */
 function InputBox({
-  lab,
+  label,
   amount,
   onAmountChange,
   onCurrencyChange,
@@ -27,57 +27,53 @@ function InputBox({
   currencyDisable = false,
   className = "",
 }) {
-  // Generate unique ID for accessibility (links label to input)
   const amountInputId = useId();
 
   return (
-    // Fragment to avoid unnecessary DOM elements
-    <>
-      {/* Main container div with dynamic className for styling */}
-      <div className={`bg-white w-xl p-1 border-2 rounded-xl ${className}`}>
-        <div className="flex justify-between m-5">
-          {/* Amount input label - linked to input via htmlFor */}
-          <label htmlFor={amountInputId} className="text-gray-600 text-xl">
-            {lab}
+    <div
+      className={`bg-white p-3 rounded-lg border border-gray-200 ${className}`}
+    >
+      <div className="grid grid-cols-1 gap-2">
+        <div className="flex justify-between items-center">
+          <label
+            htmlFor={amountInputId}
+            className="text-sm md:text-base text-gray-700 font-medium"
+          >
+            {label}
           </label>
-          <label className="text-gray-600 text-xl">Currency Type</label>
+          <span className="text-xs md:text-sm text-gray-500">Currency</span>
         </div>
 
-        <div className="flex justify-between text-2xl m-5">
-          {/* Amount input field */}
-          <input
-            id={amountInputId} // Links to the label for accessibility
-            type="number" // Specifies numeric input
-            placeholder="Amount" // Placeholder text
-            disabled={amountDisable} // Controls input disabled state
-            value={amount} // Controlled component value
-            onChange={(e) =>
-              // Calls callback with parsed number when value changes
-              onAmountChange && onAmountChange(Number(e.target.value))
-            }
-            className="border-1 p-1 rounded-xl bg-amber-200"
-          />
+        <div className="flex gap-2 md:gap-3">
+          <div className="flex-1">
+            <input
+              id={amountInputId}
+              type="number"
+              placeholder="0.00"
+              disabled={amountDisable}
+              value={amount}
+              onChange={(e) => onAmountChange?.(Number(e.target.value))}
+              className="w-full p-2 md:p-2.5 text-sm md:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+            />
+          </div>
 
-          {/* Currency selection dropdown */}
-          <select
-            disabled={currencyDisable} // Controls select disabled state
-            value={selectCurrency} // Controlled component value
-            onChange={(e) =>
-              // Calls callback with selected currency when changed
-              onCurrencyChange && onCurrencyChange(e.target.value)
-            }
-            className="border-1 p-1 rounded-xl bg-blue-100"
-          >
-            {/* Maps through currency options to create dropdown options */}
-            {currencyOptions.map((val) => (
-              <option key={val} value={val}>
-                {val.toUpperCase()} {/* Display currency code in uppercase */}
-              </option>
-            ))}
-          </select>
+          <div className="w-24 md:w-28">
+            <select
+              disabled={currencyDisable}
+              value={selectCurrency}
+              onChange={(e) => onCurrencyChange?.(e.target.value)}
+              className="w-full p-2 md:p-2.5 text-sm md:text-base border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+            >
+              {currencyOptions.map((currency) => (
+                <option key={currency} value={currency}>
+                  {currency.toUpperCase()}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
